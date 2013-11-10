@@ -1,16 +1,27 @@
-from flask import Flask, render_template, json
+from flask import Flask, json, render_template, request, Response
 from subprocess import check_output
+import analyser
+
 app = Flask(__name__)
+app.config['DEBUG'] = True
 
 @app.route("/")
 def hello():
 	return render_template("layout.html")
 
-@app.route("/java", methods=['POST'])
+@app.route("/java", methods=['POST', 'GET']) # remove GET later
 def java():
-	result = check_output(["java", "-cp", "'*'", "-jar", "TwitterNLP.jar", "data/SampleSet1_POS.txt", "models/SerializedModel4"])
+	query = request.form['query']
+	result = check_output(["java", "-jar", "TwitterNLP.jar", "data/database.db", "'" + query + "'"])
 	# return Response(dumps(result), status=200, mimetype='application/json')
-	return result
+	app.logger.debug('Finished Java work, moving on to sentiment analysis...')
+
+	result_list = result.split("\n")
+	classifications = analyser.getClassifiedDictionary(result_list)
+
+	app.logger.debug('Finished sentiment analysis.')
+
+	return json.dumps(classifications)
 
 # Return mock data for styling web app properly
 @app.route("/javamock", methods=['POST'])
