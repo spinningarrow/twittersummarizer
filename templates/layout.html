@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+	<title>TwitterNLP</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.0.3.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>TwitterNLP</h1>
+		<p>Oh dear.</p>
+
+		<form role="form" id="form-main">
+			<label for="query">Query</label>
+		    <input type="text" class="form-control" id="query" placeholder="Enter your query">
+		</form>
+
+		<div id="query-results">
+			The results will be displayed here.
+		</div>
+	</div>
+</body>
+</html>
