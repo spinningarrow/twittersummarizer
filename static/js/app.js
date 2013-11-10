@@ -24,13 +24,13 @@ $(document).ready(function () {
 
 			// Loop through the positive and negative results and add them
 			// to the HTML
-			var $ul = $('<ul></ul>').appendTo("#query-results-positive")
+			var $ul = $("#query-results-positive").find('.list')
 
 			for (var i = 0; i < resultObject.positive.length; i++) {
 				$ul.append("<li>" + resultObject.positive[i] + "</li>")
 			}
 
-			$ul = $('<ul></ul>').appendTo("#query-results-negative")
+			$ul = $("#query-results-negative").find('.list')
 
 			for (var i = 0; i < resultObject.negative.length; i++) {
 				$ul.append("<li>" + resultObject.negative[i] + "</li>")
