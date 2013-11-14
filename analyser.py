@@ -63,11 +63,13 @@ def best_word_features(words):
 
 
 def best_bigram_word_feats(words, score_fn=BigramAssocMeasures.chi_sq, n=200):
-    bigram_finder = BigramCollocationFinder.from_words(words)
-    bigrams = bigram_finder.nbest(score_fn, n)
-    d = dict([(bigram, True) for bigram in bigrams])
-    d.update(best_word_features(words))
-    return d
+	print "bigrams in da house"
+
+	bigram_finder = BigramCollocationFinder.from_words(words)
+	bigrams = bigram_finder.nbest(score_fn, n)
+	d = dict([(bigram, True) for bigram in bigrams])
+	d.update(best_word_features(words))
+	return d
 
 def buildTrainingSet():
 	posFeatures = []
@@ -98,55 +100,66 @@ def classifyTweet (classifier, feature_select, tweet):
 	words = feature_select(words)
 	return classifier.classify(words)
 
+def make_full_dict(words):
+	return dict([(word, True) for word in words])
+
 word_scores = 0
 feature_select = 0
 best_words = 0
 train_features = 0
 classifier = 0
+
 def getClassifiedDictionary (sentences):
+	print "entered yo"
 	global word_scores, feature_select, best_words, train_features, classifier
 	word_scores = create_word_scores()
-	feature_select = best_bigram_word_feats
+	feature_select = make_full_dict
+	# feature_select = best_bigram_word_feats
 	best_words = find_best_words(word_scores)
 	train_features = buildTrainingSet()
 	classifier = nltk.NaiveBayesClassifier.train(train_features)
+	print "trained yo"
 	classified_dict = {}
 	negative = []
 	positive = []
 	classified_dict["negative"] = negative
 	classified_dict["positive"] = positive
+	
 	for line in sentences:
 		tweet = line.lower()
 		words = re.findall(r"[\w']+|[.,!?;]", tweet.rstrip())
 		words = feature_select(words)
 		classified_dict[classifier.classify(words)].append(line)
 
-	return classified_dict
+	return classified_dict			
 
 def serializeClassifier ():
 	global classifier
-	w = open('classifier','w')
+	w = open('classifier.ser','w')
 	w.write(pickle.dumps(classifier))
 	return "done"
 
 def deserializeClassifier ():
 	global word_scores, feature_select, best_words, train_features, classifier
 	word_scores = create_word_scores()
-	feature_select = best_bigram_word_feats
+	feature_select = make_full_dict
 	best_words = find_best_words(word_scores)
 	train_features = buildTrainingSet()
-	with open('classifier', 'r') as file:
+	with open('classifier.ser', 'r') as file:
 		content = file.read()
 		classifier = pickle.loads(content)
+		print 'classifier is in'
 		sentence = "i am sad"
 		words = re.findall(r"[\w']+|[.,!?;]", sentence.rstrip())
 		words = feature_select(words)
 		print classifier.classify(words)
 
+
+
 def classify (sentences):
 	global word_scores, feature_select, best_words, train_features, classifier
 	word_scores = create_word_scores()
-	feature_select = best_bigram_word_feats
+	feature_select = make_full_dict #best_bigram_word_feats
 	best_words = find_best_words(word_scores)
 	train_features = buildTrainingSet()
 	classified_dict = {}
@@ -159,11 +172,11 @@ def classify (sentences):
 		classified_dict["positive"] = positive
 		for line in sentences:
 			tweet = line.lower()
-			words = re.findall(r"[\w']+|[.,!?;]", sentences.rstrip())
+			words = re.findall(r"[\w']+|[.,!?;]", line.rstrip())
 			words = feature_select(words)
 			classified_dict[classifier.classify(words)].append(line)
 
-	return classified_dict
+	return classified_dict					
 
 # if sys.argv[1]:
 # 	print(classifyTweet(classifier, feature_select, str(sys.argv[1]).lower()))
