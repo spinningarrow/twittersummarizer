@@ -1,4 +1,13 @@
 $(document).ready(function () {
+	// Show/hide the loading indicator on Ajax
+	$(document)
+		.ajaxStart(function () {
+			$('.loading').removeClass('hidden')
+		})
+		.ajaxStop(function () {
+			$('.loading').addClass('hidden')
+		})
+
 	$('#form-main').submit(function (event) {
 		// Don't actually submit the form
 		event.preventDefault()
@@ -24,19 +33,20 @@ $(document).ready(function () {
 
 			// Loop through the positive and negative results and add them
 			// to the HTML
-			var $ul = $("#query-results-positive").find('.list')
+			var $ul = $("#query-results-positive").find('.list').empty()
 
 			for (var i = 0; i < resultObject.positive.length; i++) {
 				$ul.append("<li>" + resultObject.positive[i] + "</li>")
 			}
 
-			$ul = $("#query-results-negative").find('.list')
+			$ul = $("#query-results-negative").find('.list').empty()
 
 			for (var i = 0; i < resultObject.negative.length; i++) {
 				$ul.append("<li>" + resultObject.negative[i] + "</li>")
 			}
 
-			// $('#query-results-positive').html(data);
+			$('.container.main').addClass('results-loaded')
+			$('.query-results').hide().removeClass('hidden').fadeIn('slow')
 		})
 	})
 })

@@ -13,49 +13,45 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="page-header col-md-12">
+			<div class="header col-md-11">
 				<h1>TwitterNLP</h1>
 			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-12">
-				<form role="form" id="form-main">
-					<div class="input-group">
-						<!-- <label for="query">Query</label> -->
-						<input type="text" class="form-control" id="query" placeholder="Enter your query">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">Submit</button>
-						</span>
-					</div>
-				</form>
+			<div class="loading hidden col-md-1">
+				<span>&nbsp;</span>
 			</div>
 		</div>
+	</div>
+	<div class="container main">
+
+		<form role="form" id="form-main">
+			<div class="input-group">
+				<input type="text" class="form-control" id="query" placeholder="Enter your query" autofocus>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit">Submit</button>
+				</span>
+			</div>
+		</form>
 
 		<!-- The results will be displayed here. -->
-		<div class="row query-results">
+		<div class="row query-results hidden">
 			<div class="col-md-6">
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<h3 class="panel-title">Positive</h3>
-					</div>
-					<div class="panel-body">
-						<div id="query-results-positive">
-							<ul class="list list-unstyled"></ul>
-						</div>
+				<div class="panel-heading">
+					<h3 class="panel-title">Positive</h3>
+				</div>
+				<div class="panel-body">
+					<div id="query-results-positive">
+						<ul class="list list-unstyled"></ul>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-md-6">
-				<div class="panel panel-danger">
-					<div class="panel-heading">
-						<h3 class="panel-title">Negative</h3>
-					</div>
-					<div class="panel-body">
-						<div id="query-results-negative">
-							<ul class="list list-unstyled"></ul>
-						</div>
+				<div class="panel-heading">
+					<h3 class="panel-title">Negative</h3>
+				</div>
+				<div class="panel-body">
+					<div id="query-results-negative">
+						<ul class="list list-unstyled"></ul>
 					</div>
 				</div>
 			</div>
