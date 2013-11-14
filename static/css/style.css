@@ -54,6 +54,14 @@ body {
 	height: 2em;
 }
 
+.panel-positive .panel-title {
+	color: green;
+}
+
+.panel-negative .panel-title {
+	color: red;
+}
+
 footer {
 	background: #fff;
 	bottom: 0;
