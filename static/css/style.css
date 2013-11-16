@@ -34,7 +34,7 @@ body {
 
 .loading {
 	background: url("/static/images/loading.gif") no-repeat center center;
-	height: 610px;
+	height: 60px;
 	width: 30px;
 }
 
