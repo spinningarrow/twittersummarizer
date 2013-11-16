@@ -12,7 +12,7 @@ def hello():
 @app.route("/java", methods=['POST', 'GET']) # remove GET later
 def java():
 	query = request.form['query']
-	result = check_output(["java", "-jar", "TwitterNLP.jar", "data/database.db", query])
+	result = check_output(["java", "-jar", "TwitterNLP.jar", "data/database_small.db", query])
 	# return Response(dumps(result), status=200, mimetype='application/json')
 	app.logger.debug('Finished Java work, moving on to sentiment analysis...')
 

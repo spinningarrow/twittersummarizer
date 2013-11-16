@@ -20,7 +20,7 @@ $(document).ready(function () {
 		}
 
 		// Send the query to the Java method
-		$.post('/javamock', {
+		$.post('/java', {
 			query: query
 		}, function (data, status, xhr) {
 
