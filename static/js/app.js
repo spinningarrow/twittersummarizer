@@ -3,9 +3,11 @@ $(document).ready(function () {
 	$(document)
 		.ajaxStart(function () {
 			$('.loading').removeClass('hidden')
+			$('button[type="submit"]').prop('disabled', true)
 		})
 		.ajaxStop(function () {
 			$('.loading').addClass('hidden')
+			$('button[type="submit"]').prop('disabled', false)
 		})
 
 	$('#form-main').submit(function (event) {
